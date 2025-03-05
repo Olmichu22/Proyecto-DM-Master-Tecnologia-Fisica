@@ -1,3 +1,4 @@
+import numpy as np
 class foton():
   def __init__(self, n= 0, p = [0., 0., 0.], d = [0., 0., 0.], l = None, spa = 0):
     """
@@ -11,6 +12,7 @@ class foton():
     """    """"""
     self.n = n # Número de fotón
     self.p = p # Posición
+    d = d/np.ligalg.norm(d)
     self.d = d # Direccion unitaria
     self.l = l # Camino óptico
     self.spa = spa # Espacio en el que está
