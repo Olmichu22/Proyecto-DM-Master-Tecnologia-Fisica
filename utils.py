@@ -2,45 +2,46 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-# Cálculo del ángulo crítico
-teta_critico = np.arcsin(ni/ nt)
-print(np.degrees(teta_critico))
-print(teta_critico)
 # Definición de la función de Snell
 def snell(ni, nt, teta_i):
-    """Calcula el ángulo de refracción usando la ley de Snell."""
-    try:
-        teta_t = np.arcsin(ni * np.sin(teta_i) / nt)
-        return teta_t
-    except ValueError:
-        # Si el seno es mayor a 1, hay reflexión interna total
-        return None  # Indica que no hay transmisión
+  """Calcula el ángulo de refracción usando la ley de Snell.
 
-# Llamada a la función Snell
-teta_t = snell(ni, nt, teta_i)
+  Args:
+      ni (float): Índice de refracción del medio incidente.
+      nt (float): Índice de refracción del medio transmitido.
+      teta_i (float): Ángulo de incidencia.
 
-# Salida
-if teta_t is None:
-    print("Ocurre reflexión interna total")
-else:
-    print(f"El ángulo de transmisión es {teta_t:.2f} rad")
-
-Rs=0
-Rp=0
-Ru=0
-Tu=0
-def fresnel(ni,nt,teta_t,teta_i):
-     # Si hay reflexión interna total
-    if teta_t is None:
-        return 1
-    Rs=((ni*np.cos(teta_i)-nt*np.cos(teta_t))/(ni*np.cos(teta_i)+nt*np.cos(teta_t)))**2
-    Rp=((ni*np.cos(teta_t)-nt*np.cos(teta_i))/(ni*np.cos(teta_t)+nt*np.cos(teta_i)))**2
-    Ru=(Rs+Rp)/2
-    return (Ru)
+  Returns:
+      teta_t: Ángulo de refracción.
+      En caso de reflexión interna total, retorna None.
+  """  """"""
+  try:
+      teta_t = np.arcsin(ni * np.sin(teta_i) / nt)
+      return teta_t
+  except ValueError:
+      # Si el seno es mayor a 1, hay reflexión interna total
+      return None  # Indica que no hay transmisión
 
 
-x=fresnel(ni,nt,teta_t,teta_i)
-print(x)
+def fresnel(ni, nt, teta_t, teta_i):
+  """ Calcula el coeficiente de reflexión de Fresnel para ondas no polarizadas.
+
+  Args:
+      ni (float): Índice de refracción del medio incidente.
+      nt (float): Índice de refracción del medio transmitido.
+      teta_t (float): Ángulo de refracción.
+      teta_i (float): Ángulo de incidencia.
+  
+  Returns:
+    Ru  (float): Coeficiente de reflexión de Fresnel.
+  """
+    # Si hay reflexión interna total
+  if teta_t is None:
+      return 1
+  Rs=((ni*np.cos(teta_i)-nt*np.cos(teta_t))/(ni*np.cos(teta_i)+nt*np.cos(teta_t)))**2
+  Rp=((ni*np.cos(teta_t)-nt*np.cos(teta_i))/(ni*np.cos(teta_t)+nt*np.cos(teta_i)))**2
+  Ru=(Rs+Rp)/2
+  return Ru
 
 
 def reflect(l=[0.,0.,0.], n=[0.,0.,0.]):
