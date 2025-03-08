@@ -19,30 +19,10 @@ class SimulatedPhoton():
     self.l = l # Camino óptico
     self.spa = spa # Espacio en el que está
   
-  def set_pos(self, pos):
-    self.pos = pos
-    
-  def set_dir(self, dire):
-    self.dire = dire
+  def __str__(self):
+    return "Fotón con id " + str(self.n) + " en posición " + str(self.pos) + " y dirección " + str(self.dire)
   
-  def set_l(self, l):
-    self.l = l
+  def __repr__(self):
+    return "Fotón(" + str(self.n) + "," + str(self.pos) + "," + str(self.dire) + "," + str(self.l) + "," + str(self.spa) + ")"
   
-  def set_spa(self, spa):
-    self.spa = spa
-  
-  def get_pos(self):
-    return self.pos
-  
-  def get_dir(self):
-    return self.dire
-  
-  def get_l(self):
-    return self.l
-  
-  def get_spa(self):
-    return self.spa
-  
-  def get_n(self):
-    return self.n
     
