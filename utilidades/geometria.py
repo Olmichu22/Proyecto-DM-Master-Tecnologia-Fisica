@@ -11,10 +11,10 @@ def intersecion_foton_esfera(esfera, foton):
       direccion (list, float): Dirección de la recta.
   
   Returns:
-      list, float: Punto de intersección.
+      (tuple, list | list): Punto de intersección y vector normal.
   """
   origen = foton.pos
-  direccion = foton.dir
+  direccion = foton.dire
   centro = esfera.centro
   radio = esfera.radio
   l = origen - centro
@@ -27,17 +27,18 @@ def intersecion_foton_esfera(esfera, foton):
   t0 = (-b - np.sqrt(discriminante)) / (2*a)
   t1 = (-b + np.sqrt(discriminante)) / (2*a)
   
-  if foton.get_spa() != 0:
+  if foton.spa != 0:
     # Caso dentro de la esfera
     t = t0 if np.abs(t0) > np.abs(t1) else t1
     p_interseccion = origen + t*direccion
     n = p_interseccion - centro
     # Cambiamos signo del vector normal
     n = -n / np.linalg.norm(n)
-  elif foton.get_spa() == 0:
+  elif foton.spa == 0:
     t = t0 if np.abs(t0) < np.abs(t1) else t1
-    t = t0 if np.abs(t0) > np.abs(t1) else t1
     p_interseccion = origen + t*direccion
     n = p_interseccion - centro
     n = n / np.linalg.norm(n)  
+    if np.dot(n, direccion) > 0:
+      return [None, None, None], n
   return p_interseccion, n

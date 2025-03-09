@@ -9,7 +9,7 @@ class Fuente():
 
 
 class FuenteMonocromatica(Fuente):
-  def __init__(self, frecuencia, origen=0, dispersion_pos=GenerateRandomNormalPosition2D, dispersion_ang=None):
+  def __init__(self, frecuencia=1000, origen=0, dispersion_pos=GenerateRandomNormalPosition2D, dispersion_ang=None):
     """Constructor de la clase FuenteMonocromaticaNormal.
     Fuente de fotones monocromáticos con posición y dirección dada por una distribución.
     Args:
@@ -47,7 +47,7 @@ class FuenteMonocromatica(Fuente):
     self.fotones.append(foton)
     return foton
   
-  def emitirN(self, N, mean_pos, std_pos, mean_ang, std_ang):
+  def emitirN(self, N, mean_pos=0, std_pos=5, mean_ang=np.pi/2, std_ang=np.pi/4):
     """ Emite N fotones en la posición y dirección dadas."""
     for i in range(N):
       self.emitir(i, mean_pos, std_pos, mean_ang, std_ang)

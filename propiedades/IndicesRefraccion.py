@@ -2,7 +2,7 @@ class nCte:
   """ Clase que representa un índice de refracción constante """
   def __init__(self, n):
       self.n = n
-  def calcular(self, f):
+  def calcular(self, f=0):
       return self.n
   def __str__(self):
       return "Índice de refracción constante: " + str(self.n)
