@@ -69,7 +69,7 @@ class Interfase():
     """
     return self.estructura.material.indice_refraccion.calcular(f)  
   
-  def interactuar(self, n, foton):
+  def interactuar(self, n, foton, verbose=0):
     """
     Determina la interacción del foton con la interfase.
     
@@ -85,19 +85,35 @@ class Interfase():
     indice_refraccion = self.indiceInterior(foton.f)
     indice_refraccion_exterior = self.indiceExterior(foton.f)
     # Determinar ángulo de incidencia y refracción
-    direccion_refract = self.refract(foton.dire, n, indice_refraccion_exterior, indice_refraccion)
-    direccion_reflect = self.reflect(foton.dire, n)
+    try:
+      direccion_refract = self.refract(foton, n, indice_refraccion_exterior, indice_refraccion)
+      direccion_reflect = self.reflect(foton, n)
+    except Exception as e:
+      if n[0] == n[1] & n[1] == n[2] & n[1] == 0:
+        raise Exception("El vector normal es nulo")
+      else:
+        raise e
     teta_i = np.arccos(np.dot(direccion_reflect, n))
     teta_t = np.arccos(np.dot(direccion_refract, -n))
     
     # Determinar coeficiente de Fresnel
     Ru = fresnel(indice_refraccion_exterior, indice_refraccion, teta_t, teta_i)
+    if verbose > 0:
+      print(f" ni {indice_refraccion_exterior}, nt {indice_refraccion}")
+      print(f"Ru {Ru}")
+      print(f"tetai {teta_i} tetat {teta_t}")
     
     reflexion =  UniformMontecarlo(Ru)
     if reflexion:
-      foton.dire = direccion_reflect
+      if verbose > 0:
+        print(f"Fotón {foton.n} se refleja.")
+      new_dire = direccion_reflect
+      result = "reflect"
     else:
-      foton.dire = direccion_refract
-    return foton
+      if verbose > 0:
+        print(f"Fotón {foton.n} se refracta.")
+      new_dire = direccion_refract
+      result = "refract"
+    return new_dire, result
     
     

@@ -6,6 +6,7 @@ class Fuente():
   def __init__(self, frecuencia):
       self.frecuencia = frecuencia
       self.fotones = []
+      self.nfotones = len(self.fotones)
 
 
 class FuenteMonocromatica(Fuente):
@@ -23,7 +24,7 @@ class FuenteMonocromatica(Fuente):
     self.dispersion_pos = dispersion_pos
     self.dispersion_ang = dispersion_ang
 
-  def emitir(self, n, mean_pos=0, std_pos=5, mean_ang=np.pi/2, std_ang=np.pi/4):
+  def emitir(self, n, mean_pos=0, std_pos=5, mean_ang=np.pi/2, std_ang=np.pi/4, reset = True):
     """ Emite un fotón en la posición y dirección dadas.
     Args:
         n (int): Id del fotón.
@@ -32,6 +33,10 @@ class FuenteMonocromatica(Fuente):
         mean_ang (float): Media del ángulo.
         std_ang (float): Desviación estándar del ángulo.
     """ 
+    if reset: 
+      self.fotones = []
+      self.nfotones = len(self.fotones)
+  
     # Calcular posición y dirección del fotón
     if self.dispersion_pos:
       pos = self.dispersion_pos(self.origen, mean_pos, std_pos)
@@ -42,13 +47,27 @@ class FuenteMonocromatica(Fuente):
     else:
       ang = mean_ang
       
-    dire = [np.sin(ang), np.cos(ang), 0]
+    dire = [np.cos(ang), np.sin(ang), 0]
     foton = SimulatedPhoton(n, pos, dire, f=self.frecuencia)
     self.fotones.append(foton)
     return foton
   
-  def emitirN(self, N, mean_pos=0, std_pos=5, mean_ang=np.pi/2, std_ang=np.pi/4):
-    """ Emite N fotones en la posición y dirección dadas."""
+  def emitirN(self, N, mean_pos=0, std_pos=5, mean_ang=np.pi/2, std_ang=np.pi/4, reset=True):
+    """ Genera N fotones desde la fuente.
+    Args:
+        N (int): Número de fotones a generar.
+        mean_pos (int, optional): Posición central de generación. Defaults to 0.
+        std_pos (int, optional): Desviación de la posición de generación. Si es uniforme, rango a izquierda y derecha. Defaults to 5.
+        mean_ang (float, optional): Ángulo (rad) central de generación. Defaults to np.pi/2.
+        std_ang (float, optional): Desviación del ángulo (rad) de generación. Defaults to np.pi/4.
+        reset (bool, optional): Reinica el contador de fotones. Defaults to True.
+
+    Returns:
+        list: Lista de los fotones generados como SimulatedPhoton.
+    """
+    if reset:
+      self.fotones = []
+      self.nfotones = len(self.fotones)
     for i in range(N):
-      self.emitir(i, mean_pos, std_pos, mean_ang, std_ang)
+      self.emitir(i+self.nfotones+1, mean_pos, std_pos, mean_ang, std_ang, reset=False)
     return self.fotones
