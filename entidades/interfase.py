@@ -82,11 +82,15 @@ class Interfase():
         
     """
     # Calcular índice de refracción (distinto para medios dispersivos)
-    indice_refraccion = self.indiceInterior(foton.f)
-    indice_refraccion_exterior = self.indiceExterior(foton.f)
+    if foton.spa == 0:
+      indice_destino = self.indiceInterior(foton.f)
+      indice_origen = self.indiceExterior(foton.f)
+    else:
+      indice_destino = self.indiceExterior(foton.f)
+      indice_origen =self.indiceInterior(foton.f)
     # Determinar ángulo de incidencia y refracción
     try:
-      direccion_refract = self.refract(foton, n, indice_refraccion_exterior, indice_refraccion)
+      direccion_refract = self.refract(foton, n, indice_origen, indice_destino)
       direccion_reflect = self.reflect(foton, n)
     except Exception as e:
       if n[0] == n[1] & n[1] == n[2] & n[1] == 0:
@@ -97,9 +101,9 @@ class Interfase():
     teta_t = np.arccos(np.dot(direccion_refract, -n))
     
     # Determinar coeficiente de Fresnel
-    Ru = fresnel(indice_refraccion_exterior, indice_refraccion, teta_t, teta_i)
+    Ru = fresnel(indice_origen, indice_destino, teta_t, teta_i)
     if verbose > 0:
-      print(f" ni {indice_refraccion_exterior}, nt {indice_refraccion}")
+      print(f" ni {indice_origen}, nt {indice_destino}")
       print(f"Ru {Ru}")
       print(f"tetai {teta_i} tetat {teta_t}")
     

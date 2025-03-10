@@ -19,7 +19,22 @@ class SimulatedPhoton():
     self.l = l # Camino óptico
     self.spa = spa # Espacio en el que está
     self.f = f # Frecuencia del fotón
+    self.hist = [(self.pos, self.spa)]
   
+  def actualizarPos(self, newPos):
+    """Actualiza la posición del fotón.
+    
+    Args:
+        newPos (list, float): Nueva posición del fotón.
+    """
+    self.pos = newPos
+    self.hist.append((self.pos, self.spa))
+  
+  def alternarSpa(self):
+    """Cambia el espacio del fotón.
+    """
+    self.spa = 1 - self.spa
+
   def __str__(self):
     return "Fotón con id " + str(self.n) + " en posición " + str(self.pos) + " y dirección " + str(self.dire)
   
