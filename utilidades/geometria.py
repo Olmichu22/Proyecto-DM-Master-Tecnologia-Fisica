@@ -23,7 +23,7 @@ def intersecion_foton_esfera(esfera, foton):
   c = np.dot(l, l) - radio**2
   discriminante = b**2 - 4*a*c
   if discriminante < 0:
-    return [0, 0, 0], [0, 0, 0]
+    return [None, None, None], [None, None, None]
   t0 = (-b - np.sqrt(discriminante)) / (2*a)
   t1 = (-b + np.sqrt(discriminante)) / (2*a)
   

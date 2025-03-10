@@ -14,10 +14,10 @@ class Esfera(Estructura):
     Args:
         centro (list, float): Centro de la esfera. Defaults to [0., 0., 0.].
         radio (float): Radio de la esfera. Defaults to 1.
-        material (SimpleMaterial, optional): Material de la esfera. Defaults to nCte(1.5).
+        material (SimpleMaterial, optional): Material de la esfera. Defaults to SimpleMaterial.
     """
     super().__init__(material)
-    self.centro = centro
+    self.centro = np.asarray(centro)
     self.radio = radio
     
   def interseccion(self, foton):

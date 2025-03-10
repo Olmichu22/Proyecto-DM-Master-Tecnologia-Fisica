@@ -1,7 +1,7 @@
 from propiedades.IndicesRefraccion import nCte
 class SimpleMaterial():
   
-  def __init__(self, n = nCte(1.5)):
+  def __init__(self, n = nCte(1.44)):
     """Constructor de la clase SimpleMaterial.
 
     Args:
