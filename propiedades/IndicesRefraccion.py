@@ -1,3 +1,5 @@
+import numpy as np
+
 class nCte:
   """ Clase que representa un índice de refracción constante """
   def __init__(self, n):
@@ -10,3 +12,23 @@ class nCte:
       return "nCte(" + str(self.n) + ")"
   def __eq__(self, other):
       return self.n == other.n
+
+
+
+class nComplex():
+    """ Índice de refracción complejo 
+    """
+    def __init__(self, nr, ni):
+        self.nr = nr
+        self.ni = ni
+        self.nc = complex(nr, ni)
+    
+    def calcular(self, f):
+        return self.nc
+    
+    def alpha(self, f):
+        lambda_ = 3e8/f
+        alpha = self.ni*2*np.pi/lambda_
+        return alpha
+    
+    

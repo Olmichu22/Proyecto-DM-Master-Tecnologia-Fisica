@@ -1,0 +1,14 @@
+Radio esfera
+Proporción de cada material (ff_ps) -> Usa ambos índices de redracción
+k del orden de 10⁻3
+indice complejo de la matriz e indice complejo del analito
+
+Datos
+nps(532) = 1.49
+nadn(532) = 1.4
+
+
+Tareas
+Guardar posición del fotón cuando se absorbe
+proyectar
+
