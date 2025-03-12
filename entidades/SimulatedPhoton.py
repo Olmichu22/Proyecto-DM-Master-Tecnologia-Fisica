@@ -21,6 +21,7 @@ class SimulatedPhoton():
     self.f = f # Frecuencia del fotón
     self.poshist = [(self.pos, self.spa)]
     self.dirhist = [self.dire]
+    self.tot_dist = 0
   
   def actualizarPos(self, newPos):
     """Actualiza la posición del fotón.
@@ -30,6 +31,7 @@ class SimulatedPhoton():
     """
     self.pos = np.asarray(newPos)
     self.poshist.append((self.pos, self.spa))
+    self.tot_dist += np.linalg.norm(self.poshist[-1][0] - self.poshist[-2][0])
   
   def actualizarDire(self, newDire):
     """Actualiza la dirección del fotón.
@@ -40,12 +42,19 @@ class SimulatedPhoton():
     self.dire = np.asarray(newDire)/np.linalg.norm(newDire)
     self.dirhist.append(self.dire)
   
-  def getNumeroReflexiones(self):
+  def getNumeroReflexionesInternas(self):
     """Calcula el número de reflexiones internas del foton"""
     count = 0
     for hist_el in self.poshist:
       count += hist_el[1]
     return count-1
+  
+  def getNumeroReflexiones(self):
+    count = 0
+    for hist_el in range(1, len(self.dirhist)):
+      if np.dot(self.dirhist[hist_el], self.dirhist[hist_el-1]) < 0:
+        count += 1
+    return count
   
   def alternarSpa(self):
     """Cambia el espacio del fotón.

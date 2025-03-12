@@ -27,8 +27,8 @@ class nComplex():
         return self.nr
     
     def alpha(self, f):
-        lambda_ = 3e8/f
-        alpha = self.ni*2*np.pi/lambda_
+        lambda_ = f
+        alpha = self.ni*4*np.pi/lambda_
         return alpha
     
     
