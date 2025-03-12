@@ -24,11 +24,13 @@ class nComplex():
         self.nc = complex(nr, ni)
     
     def calcular(self, f):
-        return self.nc
+        return self.nr
     
     def alpha(self, f):
         lambda_ = 3e8/f
         alpha = self.ni*2*np.pi/lambda_
         return alpha
+    
+    
     
     
