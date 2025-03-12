@@ -72,3 +72,11 @@ def refract(l=[0.,0.,0.], n=[0.,0.,0.], n1=1., n2=1.):
   """
   
   return n1/n2*l + (-n1/n2*np.dot(l,n)-np.sqrt(1-(n1/n2)**2*(1-np.dot(l,n)**2)))*n
+
+def indiceEfectivo (nc1, nc2, f1, f2):
+  epsilon1 = (nc1)**2
+  epsilon2 = (nc2)**2
+  epsilon = f1*epsilon1 + f2*epsilon2
+  n_ef = np.sqrt(np.real(epsilon))
+  k_ef = np.sqrt(np.imag(epsilon))
+  return n_ef, k_ef
