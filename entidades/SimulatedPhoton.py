@@ -3,7 +3,7 @@ import numpy as np
 class SimulatedPhoton():
   """Clase que define un fotón simulado.
   """
-  def __init__(self, n=0, pos=[0., 0., 0.], dire=[0., 0., 0.], l=None, spa=0, f=430e12):
+  def __init__(self, n=0, pos=[0., 0., 0.], dire=[0., 0., 0.], l=None, spa=0, lamda=532):
     """
     Args:
         n (int): Id del fotón. Defaults to 0.
@@ -18,7 +18,7 @@ class SimulatedPhoton():
     self.dire = dire # Direccion unitaria
     self.l = l # Camino óptico
     self.spa = spa # Espacio en el que está
-    self.f = f # Frecuencia del fotón
+    self.lamda = lamda # Longitud de onda del fotón
     self.poshist = [(self.pos, self.spa)]
     self.dirhist = [self.dire]
     self.tot_dist = 0

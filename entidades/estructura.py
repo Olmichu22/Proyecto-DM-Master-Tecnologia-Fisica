@@ -3,20 +3,21 @@ from materiales.SimpleMaterial import SimpleMaterial
 import numpy as np
 
 class Estructura():
-  def __init__(self, material):
+  def __init__(self, material, spa = 1):
     self.material = material
+    self.spa = spa
 
 class Esfera(Estructura):
   """Clase que representa una esfera en el espacio tridimensional."""
   
-  def __init__(self, centro = [0. ,0. ,0.], radio = 1, material = SimpleMaterial()):
+  def __init__(self, centro = [0. ,0. ,0.], radio = 1, material = SimpleMaterial(), spa = 1):
     """Constructor de la clase esfera.
     Args:
         centro (list, float): Centro de la esfera. Defaults to [0., 0., 0.].
         radio (float): Radio de la esfera. Defaults to 1.
         material (SimpleMaterial, optional): Material de la esfera. Defaults to SimpleMaterial.
     """
-    super().__init__(material)
+    super().__init__(material, spa)
     self.centro = np.asarray(centro)
     self.radio = radio
     

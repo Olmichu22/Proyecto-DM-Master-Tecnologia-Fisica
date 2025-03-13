@@ -18,7 +18,7 @@ class TestFuenteMonocromatica(unittest.TestCase):
 
   def test_emitir(self):
     foton = self.fuente.emitir(1)
-    self.assertEqual(foton.f, self.frecuencia)
+    self.assertEqual(foton.lamda, self.frecuencia)
     self.assertEqual(foton.pos[1], self.origen)
     self.assertEqual(len(self.fuente.fotones), 1)
 

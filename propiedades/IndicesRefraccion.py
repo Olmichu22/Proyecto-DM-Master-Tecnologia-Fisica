@@ -4,7 +4,7 @@ class nCte:
   """ Clase que representa un índice de refracción constante """
   def __init__(self, n):
       self.n = n
-  def calcular(self, f=0):
+  def calcular(self, lamda=0):
       return self.n
   def __str__(self):
       return "Índice de refracción constante: " + str(self.n)
@@ -23,12 +23,11 @@ class nComplex():
         self.ni = ni
         self.nc = complex(nr, ni)
     
-    def calcular(self, f):
+    def calcular(self, lamda):
         return self.nr
     
-    def alpha(self, f):
-        lambda_ = f
-        alpha = self.ni*4*np.pi/lambda_
+    def alpha(self, lamda):
+        alpha = self.ni*4*np.pi/lamda
         return alpha
     
     

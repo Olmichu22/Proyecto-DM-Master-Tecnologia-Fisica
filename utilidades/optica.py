@@ -86,12 +86,9 @@ def indiceEfectivo (nc1, nc2, f1, f2):
       (complex, complex): Índice de refracción efectivo.
   """
   
-  f_1 = f1/(f1+f2)
-  f_2 = f2/(f1+f2)
-  
   epsilon1 = (nc1)**2
   epsilon2 = (nc2)**2
-  epsilon = f_1*epsilon1 + f_2*epsilon2
+  epsilon = f1*epsilon1 + f2*epsilon2
   n_ef = np.sqrt(np.real(epsilon))
   k_ef = np.sqrt(np.imag(epsilon))
   return n_ef, k_ef

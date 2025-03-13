@@ -3,23 +3,23 @@ from utilidades.aleatorios import GenerateRandomNormalPosition2D
 import numpy as np
 
 class Fuente():
-  def __init__(self, frecuencia):
-      self.frecuencia = frecuencia
+  def __init__(self, lamda):
+      self.lamda = lamda
       self.fotones = []
       self.nfotones = len(self.fotones)
 
 
 class FuenteMonocromatica(Fuente):
-  def __init__(self, frecuencia=1000, origen=0, dispersion_pos=GenerateRandomNormalPosition2D, dispersion_ang=None):
+  def __init__(self, lamda=1000, origen=0, dispersion_pos=GenerateRandomNormalPosition2D, dispersion_ang=None):
     """Constructor de la clase FuenteMonocromaticaNormal.
     Fuente de fotones monocromáticos con posición y dirección dada por una distribución.
     Args:
-        frecuencia (_type_): Frecuencia de los fotones.
+        lamda (_type_): Longitud de onda de los fotones.
         origen (int, optional): Origen de los fotones. Defaults to 0.
         dispersion_pos (function, optional): Función para calcular la dispersión en la coordenada x. Defaults to GenerateRandomNormalPosition2D.
         dispersion_ang (function, optional): Función para calcular la dispersión en el ángulo. Defaults to None.
     """
-    super().__init__(frecuencia)
+    super().__init__(lamda)
     self.origen = origen
     self.dispersion_pos = dispersion_pos
     self.dispersion_ang = dispersion_ang
@@ -48,7 +48,7 @@ class FuenteMonocromatica(Fuente):
       ang = mean_ang
       
     dire = [np.cos(ang), np.sin(ang), 0]
-    foton = SimulatedPhoton(n, pos, dire, f=self.frecuencia)
+    foton = SimulatedPhoton(n, pos, dire, f=self.lamda)
     self.fotones.append(foton)
     return foton
   

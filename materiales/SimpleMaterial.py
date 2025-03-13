@@ -23,7 +23,7 @@ class SimpleMaterial():
 
 class MixedComplexMaterial():
   
-  def __init__(self, n = [], fs = []):
+  def __init__(self, n = [nComplex(1, 0)], fs = [1]):
     """Constructor de la clase MixedMaterial.
 
     Args:
@@ -31,6 +31,7 @@ class MixedComplexMaterial():
     """
     self.indices_refraccion = n
     self.fs = fs
+    print(len(self.indices_refraccion), len(self.fs))
     self.indice_refraccion = self.compose()
   
   def compose(self):

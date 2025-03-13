@@ -74,3 +74,22 @@ def GenerateRandomUniformAngle(mean, std):
     min_point = mean - std
     max_point = mean + std
     return np.random.uniform(min_point, max_point)
+
+def GenExpMonteCarlo(mu):
+  return -np.log(np.random.rand())/mu
+  
+
+import warnings
+
+def probAbs(l, mu = 0.1):
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", category=RuntimeWarning)
+        labs = GenExpMonteCarlo(mu)
+    # print("L absorcion", labs)
+    # print("L recorrida", l)
+    # print("\n")
+    if labs > l:
+        return False, labs
+    else:
+        return True, labs
+  

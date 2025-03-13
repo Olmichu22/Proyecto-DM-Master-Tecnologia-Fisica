@@ -1,20 +1,21 @@
 from utilidades.optica import reflect, refract, fresnel
 import numpy as np
 from utilidades.aleatorios import UniformMontecarlo
-from propiedades.IndicesRefraccion import nCte
+from materiales.SimpleMaterial import MixedComplexMaterial
+from propiedades.IndicesRefraccion import nComplex
 
 class Interfase():
   """
   Representa la frontera entre dos medios.
   """
-  def __init__(self, estructura, indice_exterior = nCte(1.0)):
+  def __init__(self, estructura_interior, material_exterior = MixedComplexMaterial()):
     """
     Args:
         estructura (estructura): Estructura que representa la interfase.
         indice_exterior (float): Índice de refracción del medio exterior.
     """
-    self.estructura = estructura
-    self.indice_exterior = indice_exterior
+    self.estructura_interior = estructura_interior
+    self.material_exterior = material_exterior
     
   # Encapsulamos reflect y refract en la clase Interfase
   def reflect(self, foton, n):
@@ -45,7 +46,7 @@ class Interfase():
     """
     return refract(foton.dire, n, indice_exterior, indice_interior)
     
-  def indiceExterior(self, f=1000):
+  def indiceExterior(self, lamda=1000):
     """
     Calcula el índice de refracción del medio exterior.
     
@@ -55,9 +56,9 @@ class Interfase():
     Returns:
         float: Índice de refracción del medio exterior.
     """
-    return self.indice_exterior.calcular(f)
+    return self.material_exterior.indice_refraccion.calcular(lamda)
   
-  def indiceInterior(self, f=1000):
+  def indiceInterior(self, lamda=1000):
     """
     Calcula el índice de refracción del medio interior.
     
@@ -67,7 +68,7 @@ class Interfase():
     Returns:
         float: Índice de refracción del medio interior.
     """
-    return self.estructura.material.indice_refraccion.calcular(f)  
+    return self.estructura_interior.material.indice_refraccion.calcular(lamda)  
   
   def interactuar(self, n, foton, verbose=0):
     """
@@ -83,11 +84,11 @@ class Interfase():
     """
     # Calcular índice de refracción (distinto para medios dispersivos)
     if foton.spa == 0:
-      indice_destino = self.indiceInterior(foton.f)
-      indice_origen = self.indiceExterior(foton.f)
+      indice_destino = self.indiceInterior(foton.lamda)
+      indice_origen = self.indiceExterior(foton.lamda)
     else:
-      indice_destino = self.indiceExterior(foton.f)
-      indice_origen =self.indiceInterior(foton.f)
+      indice_destino = self.indiceExterior(foton.lamda)
+      indice_origen =self.indiceInterior(foton.lamda)
     # Determinar ángulo de incidencia y refracción
     try:
       direccion_refract = self.refract(foton, n, indice_origen, indice_destino)
