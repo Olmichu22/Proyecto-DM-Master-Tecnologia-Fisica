@@ -22,23 +22,24 @@ def intersecion_foton_esfera(esfera, foton):
   b = 2*np.dot(l, direccion)
   c = np.dot(l, l) - radio**2
   discriminante = b**2 - 4*a*c
-  if discriminante < 0:
+  if discriminante <= 0:
     return [None, None, None], [None, None, None]
   t0 = (-b - np.sqrt(discriminante)) / (2*a)
   t1 = (-b + np.sqrt(discriminante)) / (2*a)
   
-  if foton.spa != 0:
-    # Caso dentro de la esfera
-    t = t0 if np.abs(t0) > np.abs(t1) else t1
-    p_interseccion = origen + t*direccion
-    n = p_interseccion - centro
-    # Cambiamos signo del vector normal
-    n = -n / np.linalg.norm(n)
-  elif foton.spa == 0:
-    t = t0 if np.abs(t0) < np.abs(t1) else t1
-    p_interseccion = origen + t*direccion
-    n = p_interseccion - centro
-    n = n / np.linalg.norm(n)  
-    if np.dot(n, direccion) > 0:
-      return [None, None, None], n
+  # Mantenemos el t positivo más pequeño
+  
+  if t1 < 0 and t0 < 0:
+    return [None, None, None], [None, None, None]
+  
+  if t1 >= 0 and t0 >= 0:
+    t = min(t1, t0) 
+  else:
+    t = t0 if t1 < 0 else t1
+  
+  p_interseccion = origen + t*direccion
+  n = p_interseccion - centro
+  n = n / np.linalg.norm(n)
+  if foton.estructura == esfera:
+    n = -n
   return p_interseccion, n

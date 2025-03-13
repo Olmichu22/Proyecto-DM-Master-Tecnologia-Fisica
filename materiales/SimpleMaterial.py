@@ -31,7 +31,7 @@ class MixedComplexMaterial():
     """
     self.indices_refraccion = n
     self.fs = fs
-    print(len(self.indices_refraccion), len(self.fs))
+    # print(len(self.indices_refraccion), len(self.fs))
     self.indice_refraccion = self.compose()
   
   def compose(self):
