@@ -64,7 +64,7 @@ class SimulatedPhoton():
   #   self.spa = 1 - self.spa
 
   def __str__(self):
-    return "Fotón con id " + str(self.n) + " en posición " + str(self.pos) + " y dirección " + str(self.dire)
+    return "Fotón con id " + str(self.n) + " en posición " + str(self.pos) + " y dirección " + str(self.dire) +"en estructura"+ str(self.estructura)
   
   def __repr__(self):
     return "Fotón(" + str(self.n) + "," + str(self.pos) + "," + str(self.dire) + "," + str(self.l) + "," + str(self.estructura) + ")"

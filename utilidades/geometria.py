@@ -26,16 +26,15 @@ def intersecion_foton_esfera(esfera, foton):
     return [None, None, None], [None, None, None]
   t0 = (-b - np.sqrt(discriminante)) / (2*a)
   t1 = (-b + np.sqrt(discriminante)) / (2*a)
-  
   # Mantenemos el t positivo más pequeño
-  
-  if t1 < 0 and t0 < 0:
+  # print(t0, t1)
+  if t1 <= 1e-5 and t0 <= 1e-5:
     return [None, None, None], [None, None, None]
   
-  if t1 >= 0 and t0 >= 0:
+  if t1 > 0 and t0 > 0:
     t = min(t1, t0) 
   else:
-    t = t0 if t1 < 0 else t1
+    t = t0 if t1 <= 1e-5 else t1
   
   p_interseccion = origen + t*direccion
   n = p_interseccion - centro
