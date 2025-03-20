@@ -3,16 +3,26 @@ class Escenario:
     Define la disposición espacial de la esfera, el medio exterior, 
     la fuente de fotones, etc.
     """
-    def __init__(self, esfera, fuente_fotones, interfase):
-        self.esfera = esfera
+    def __init__(self, estructuras, entorno, fuente_fotones):
+        self.estructuras = estructuras
         self.fuente_fotones = fuente_fotones
-        self.indice_medio_exterior = interfase
+        self.entorno = entorno
 
-    def inicializar_fotones(self):
+    def inicializar_fotones(self, config_fuente):
         """
         Genera un conjunto de fotones iniciales 
         a partir de la 'fuente_fotones'.
         """
-        # Por ejemplo, si la fuente se modela como un haz o una 
-        # distribución isotrópica, se instancia aquí.
+        N_fotones = config_fuente["N_fotones"]
+        mean_pos_x = config_fuente["mean_pos_x"]
+        std_pos_x = config_fuente["std_pos_x"]
+        mean_angle = config_fuente["mean_angle"]
+        std_angle = config_fuente["std_angle"]
+        reset = config_fuente["reset"]
+        self.fuente_fotones.emitirN(N_fotones,
+                                    mean_pos_x,
+                                    std_pos_x,
+                                    mean_angle,
+                                    std_angle,
+                                    reset)
         pass
