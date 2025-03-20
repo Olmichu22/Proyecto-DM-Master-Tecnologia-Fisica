@@ -19,19 +19,17 @@ def interactuar_interfase(n, foton, n_foton, n_t):
       
   """
   # Determinar ángulo de incidencia y refracción
-  try:
-    direccion_refract = refract(foton.dire, n, n_foton, n_t)
-    direccion_reflect = reflect(foton.dire, n)
-  except Exception as e:
-    if n[0] == n[1] & n[1] == n[2] & n[1] == 0:
-      raise Exception("El vector normal es nulo")
-    else:
-      raise e
-  teta_i = np.arccos(np.dot(direccion_reflect, n))
-  teta_t = np.arccos(np.dot(direccion_refract, -n))
+  direccion_refract = refract(foton.dire, n, n_foton, n_t)
+  direccion_reflect = reflect(foton.dire, n)
   
-  # Determinar coeficiente de Fresnel
-  Ru = fresnel(n_foton, n_t, teta_t, teta_i)
+  if direccion_refract is None:
+    Ru = 1
+  else:
+    teta_i = np.arccos(np.dot(direccion_reflect, n))
+    teta_t = np.arccos(np.dot(direccion_refract, -n))
+  
+    # Determinar coeficiente de Fresnel
+    Ru = fresnel(n_foton, n_t, teta_t, teta_i)
   
   reflexion =  UniformMontecarlo(Ru)
   if reflexion:

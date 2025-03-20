@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import warnings
 
+# warnings.filterwarnings("error")  # Convierte advertencias en excepciones
 
 # Definición de la función de Snell
 def snell(ni, nt, teta_i):
@@ -38,6 +40,7 @@ def fresnel(ni, nt, teta_t, teta_i):
     # Si hay reflexión interna total
   if teta_t is None:
       return 1
+  # try:
   Rs=((ni*np.cos(teta_i)-nt*np.cos(teta_t))/(ni*np.cos(teta_i)+nt*np.cos(teta_t)))**2
   Rp=((ni*np.cos(teta_t)-nt*np.cos(teta_i))/(ni*np.cos(teta_t)+nt*np.cos(teta_i)))**2
   Ru=(Rs+Rp)/2
@@ -70,8 +73,11 @@ def refract(l=[0.,0.,0.], n=[0.,0.,0.], n1=1., n2=1.):
   Returns:
       list, float: Vector refractado.
   """
-  
-  return n1/n2*l + (-n1/n2*np.dot(l,n)-np.sqrt(1-(n1/n2)**2*(1-np.dot(l,n)**2)))*n
+  limit_angle_sqrt = 1-(n1/n2)**2*(1-np.dot(l,n)**2)
+  if limit_angle_sqrt < 0:
+    return None
+  else:
+    return n1/n2*l + (-n1/n2*np.dot(l,n)-np.sqrt(limit_angle_sqrt))*n
 
 def indiceEfectivo (nc1, nc2, f1, f2):
   """ Calcula el índice de refracción efectivo de una mezcla de dos materiales.
