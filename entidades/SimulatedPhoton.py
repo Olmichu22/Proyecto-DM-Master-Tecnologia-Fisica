@@ -51,6 +51,14 @@ class SimulatedPhoton():
       count += hist_el[1]
     return count-1
   
+  def getInteracciona(self):
+    """Calcula si el ha interaccionado con alguna estructura.
+    
+    Returns:
+        bool: True si ha interaccionado, False en caso contrario.
+    """
+    return True if len(self.poshist) > 2 else False
+  
   def getNumeroReflexiones(self):
     count = 0
     for hist_el in range(1, len(self.dirhist)):

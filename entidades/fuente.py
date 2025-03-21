@@ -74,3 +74,9 @@ class FuenteMonocromatica(Fuente):
     for i in range(N):
       self.emitir(i+self.nfotones+1, mean_pos, std_pos, mean_ang, std_ang, reset=False)
     return self.fotones
+  
+  def __str__(self):
+    return f"Fuente monocromática. Lambda: {self.lamda}. Origen: {self.origen}. Entorno: {self.estructura}. Dispersion pos {self.dispersion_pos}. Dispersion ang {self.dispersion_ang}."
+  
+  def __repr__(self):
+    return f"Fuente monocromática. Lambda: {self.lamda}. Origen: {self.origen}. Entorno: {self.estructura}. Dispersion pos {self.dispersion_pos}. Dispersion ang {self.dispersion_ang}."

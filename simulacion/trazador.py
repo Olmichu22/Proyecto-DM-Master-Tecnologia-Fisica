@@ -102,7 +102,10 @@ class Trazador:
             self.fotones_absorbidos = []
             self.fotones_inactivos = []
             self.n_abs = 0
+            fotones_interaccion = 0
         fotones = self.escenario.fuente_fotones.fotones
         for foton in fotones:
             self.propagar(foton)
-        return self.fotones_absorbidos, self.fotones_inactivos, fotones
+            if foton.getInteracciona():
+                fotones_interaccion += 1
+        return self.fotones_absorbidos, self.fotones_inactivos, fotones, fotones_interaccion

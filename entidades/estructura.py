@@ -14,6 +14,12 @@ class Entorno(Estructura):
   """Clase que representa un entorno en el espacio tridimensional."""
   def __init__(self, ide=0, material=MixedComplexMaterial()):
     super().__init__(ide, material)
+  
+  def __str__(self):
+    return "Entorno " + str(self.ide) + " con " + str(self.material_int)
+  
+  def __repr__(self):
+    return "entorno(" + str(self.ide) + "," + str(self.material_int.indice_refraccion) + ")"
 
 class Esfera(Estructura):
   """Clase que representa una esfera en el espacio tridimensional."""

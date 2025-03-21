@@ -42,3 +42,43 @@ def intersecion_foton_esfera(esfera, foton):
   if foton.estructura == esfera:
     n = -n
   return p_interseccion, n
+
+
+def generate_spheres(n, radio, x_min, x_max, y_min=50, y_max=20000, y_fixed=False):
+    """
+    Genera n esferas con centros (x, y, 0) tales que:
+      - x está entre x_min y x_max.
+      - y está entre y_min y y_max (con y_min >= 50).
+      - Los centros no están tan próximos: la distancia entre dos centros >= 2 * radius.
+    """
+    centros = []  # Lista de centros (x, y, z)
+    attempts = 0
+    max_attempts = n * 1000  # Límite para evitar bucles infinitos
+
+    while len(centros) < n and attempts < max_attempts:
+        attempts += 1
+        
+        # Generamos coordenadas aleatorias dentro de los límites
+        x = np.random.uniform(x_min, x_max)
+        if y_fixed:
+            y = y_min
+        else:
+            y = np.random.uniform(y_min, y_max)
+        z = 0  # En el plano z = 0
+        
+        new_center = (x, y, z)
+        
+        # Verificamos que la nueva esfera no se solape con ninguna ya generada
+        overlap = False
+        for cx, cy, cz in centros:
+            distance = np.linalg.norm(np.array(new_center) - np.array((cx, cy, cz)))
+            if distance < 2.2 * radio:
+                overlap = True
+                break
+        
+        if not overlap:
+            centros.append(new_center)
+
+    if len(centros) < n:
+        print("No se pudieron generar todas las esferas sin superposición.")
+    return centros

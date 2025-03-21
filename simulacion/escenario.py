@@ -18,7 +18,7 @@ class Escenario:
         std_pos_x = config_fuente["std_pos_x"]
         mean_angle = config_fuente["mean_angle"]
         std_angle = config_fuente["std_angle"]
-        reset = config_fuente["reset"]
+        reset = True if config_fuente["reset"] == "True" else False
         self.fuente_fotones.emitirN(N_fotones,
                                     mean_pos_x,
                                     std_pos_x,

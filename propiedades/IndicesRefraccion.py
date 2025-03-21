@@ -29,7 +29,12 @@ class nComplex():
     def alpha(self, lamda):
         alpha = self.ni*4*np.pi/lamda
         return alpha
-    
+    def __str__(self):
+        return "Índice de refracción complejo: " + str(self.nr) + " + " + str(self.ni) + "i"
+    def __repr__(self):
+        return "nComplex(" + str(self.nr) + "," + str(self.ni) + ")"
+    def __eq__(self, other):
+        return self.nr == other.nr and self.ni == other.ni
     
     
     
