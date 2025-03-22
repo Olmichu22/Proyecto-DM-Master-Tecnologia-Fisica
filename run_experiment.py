@@ -297,11 +297,14 @@ for i, config in enumerate(configs):
     break
   
 # Guardamos los resultados
+# Carpeta donde están los archivos
+config_dir = configPath.split("/")[-1]
+outputPath = f"{outputPath}/{config_dir}"
 if not os.path.exists(outputPath):
   os.makedirs(outputPath)
   
 for i, config in enumerate(configs):
-  with open(f'{outputPath}/results_config_{i+1}.yaml', 'w') as file:
+  with open(f'{outputPath}/results_{files[i]}', 'w') as file:
     yaml.dump(results[f"config_{i+1}"], file)
     
 print("Resultados guardados en el directorio de salida")

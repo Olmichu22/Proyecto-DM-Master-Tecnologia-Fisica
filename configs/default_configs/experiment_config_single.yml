@@ -12,26 +12,29 @@ fotones:
 emision_fuente:
   N_fotones: 1000
   mean_pos_x: 0
-  std_pos_x: 0
+  std_pos_x: 2999
   mean_pos_y: 0
   std_pos_y: 0
   mean_angle: pi/2
   std_angle: 0
   reset : "True"
-  d_ampliacion: 300
+  d_ampliacion: 3000
 
 estructuras:
   n_estructuras: 1             # Se creará una única esfera
-  min_x: -500
-  max_x: 500
-  min_y: -500
-  max_y: 500
+  min_x: 0
+  max_x: 1000
+  min_y: 4000
+  max_y: 1000
   y_fixed: false
   estructuras_aisladas:
-    radio: 250
+    radio: 3000
     nr_list: 
-      - 1.5
+      - 1.6
+      - 1.462 
     ni_list:
-      - 0.01
+      - 0
+      - 0.001
     fs_list:
-      - 1.0
+      - 0.99
+      - 0.01
