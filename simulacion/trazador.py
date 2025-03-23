@@ -53,6 +53,7 @@ class Trazador:
                 # print("Estado final ", f)
                 self.n_abs += 1
                 foton.actualizarPos(foton.pos + foton.dire*labs)
+                foton.actualizarDire(foton.dire, "absorb")
                 self.fotones_inactivos.append(foton)
                 self.fotones_absorbidos.append(foton)
                 break
@@ -80,15 +81,14 @@ class Trazador:
             
             # Si se refleja cambiamos su posición y dirección
             if result == "reflect":
-
                 foton.actualizarPos(min_pint)
-                foton.actualizarDire(new_dire)
+                foton.actualizarDire(new_dire, result)
                 continue
             
             # Si se refracta cambiamos su posición, dirección y espacio en el que está
             if result == "refract":
                 foton.actualizarPos(min_pint)
-                foton.actualizarDire(new_dire)
+                foton.actualizarDire(new_dire, result)
                 foton.estructura = estructura_transmitida
                 continue
         pass

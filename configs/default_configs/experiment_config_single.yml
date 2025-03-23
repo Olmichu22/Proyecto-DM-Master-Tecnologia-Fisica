@@ -10,7 +10,7 @@ fotones:
   dispersion_ang: "uniform"
 
 emision_fuente:
-  N_fotones: 1000
+  N_fotones: 10000
   mean_pos_x: 0
   std_pos_x: 2999
   mean_pos_y: 0

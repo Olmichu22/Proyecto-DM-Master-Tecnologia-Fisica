@@ -1,0 +1,47 @@
+entorno:
+  n_entorno:
+    nr: 1.4      # Índice real del entorno (por ejemplo, agua o aire)
+    ni: 0.0       # Índice imaginario (sin absorción)
+
+emision_fuente:
+  N_fotones: 10000
+  mean_pos_x: 0
+  std_pos_x: 2999
+  mean_pos_y: 0
+  std_pos_y: 0
+  mean_angle: pi/2
+  std_angle: 0
+  reset : "True"
+  d_ampliacion: 3000
+
+fotones:
+  lamda: 532
+  origen: 0
+  dispersion_pos: "uniform"    # Usa la función GenerateRandomUniformPosition2D
+  dispersion_ang: "uniform"    # Usa la función GenerateRandomUniformAngle
+
+estructuras:
+  n_estructuras: 1            # Se generarán 2 pares de esferas (externa e interna)
+  min_x: 0
+  max_x: 1000
+  min_y: 4000
+  max_y: 1000
+  y_fixed: false
+  estructuras_anidadas:
+    radio_ext: 3000             # Radio de la esfera externa
+    espesor: 50                # Diferencia: radio_interna = radio_ext - espesor
+    nr_ext_list:
+      - 1.6
+      - 1.462         # Índice real interno
+    ni_ext_list: 
+      - 0
+      - 0.001      # Índice imaginario interno
+    fs_ext_list: 
+      - 0.99
+      - 0.01        # Fracción de volumen interna
+    nr_int_list: 
+      - 2        # Índice real externo (de la estructura)
+    ni_int_list: 
+      - 0.0         # Índice imaginario externo
+    fs_int_list:
+      - 1.0         # Fracción de volumen externa

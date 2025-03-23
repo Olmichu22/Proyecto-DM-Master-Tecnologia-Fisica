@@ -31,7 +31,7 @@ def intersecion_foton_esfera(esfera, foton):
   if t1 <= 1e-5 and t0 <= 1e-5:
     return [None, None, None], [None, None, None]
   
-  if t1 > 0 and t0 > 0:
+  if t1 > 1e-5 and t0 > 1e-5:
     t = min(t1, t0) 
   else:
     t = t0 if t1 <= 1e-5 else t1

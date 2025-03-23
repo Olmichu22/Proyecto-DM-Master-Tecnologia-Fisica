@@ -2,6 +2,7 @@ import yaml
 import argparse
 import os
 from copy import deepcopy
+import numpy as np
 
 def create_experiments(default_config, category, dict_of_values):
   """
@@ -51,10 +52,11 @@ parser.add_argument("-c", '--category', nargs='+', type=str, help='Upper categor
 parser.add_argument("-k", '--key', type =str, help='Key to override in the default configuration.')
 parser.add_argument("-v", '--value', nargs='+', help='Values to override in the default configuration.')
 parser.add_argument("-s", "--structures", default = "single", type=str, help='Type of structures to use in the simulation.')
+parser.add_argument("-r", "--range", nargs='+', type=float, help='Range of values to override in the default configuration. Initial value, final value and step.')
 args = parser.parse_args()
 
 
-output_path = "configs/experiments_"+args.key
+output_path = "configs/experiments_"+args.structures+"_"+args.key
 
 if not os.path.exists(output_path):
     os.makedirs(output_path)
@@ -65,11 +67,17 @@ if args.structures == "nested":
     default_config_path += "/experiment_config_nested.yml"
 elif args.structures == "single":
     default_config_path += "/experiment_config_single.yml"
+elif args.structures == "inverse_nested":
+    default_config_path += "/experiment_config_inverse_nested.yml"
 else:
     raise Exception("Invalid structure type")
   
-  
-dict_of_values = {args.key: args.value}
+if args.range:
+  dict_of_values = {args.key: list(np.arange(args.range[0], args.range[1], args.range[2]))}
+elif args.value:  
+  dict_of_values = {args.key: args.value}
+else:
+  raise Exception("No values provided")
 experiments = create_experiments(default_config_path, args.category, dict_of_values)
 for i, experiment in enumerate(experiments):
     with open(output_path +f"/config_{args.key}{str(i)}"+".yaml", 'w') as file:

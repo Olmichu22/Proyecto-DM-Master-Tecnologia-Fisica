@@ -22,8 +22,9 @@ class SimulatedPhoton():
     self.estructura = estructura # Mateiral en el que está
     self.lamda = lamda # Longitud de onda del fotón
     self.poshist = [(self.pos, self.estructura.ide)]
-    self.dirhist = [self.dire]
+    self.dirhist = [(self.dire, "Emission")]
     self.tot_dist = 0
+    self.pint_hist = []
   
   def actualizarPos(self, newPos):
     """Actualiza la posición del fotón.
@@ -35,14 +36,14 @@ class SimulatedPhoton():
     self.poshist.append((self.pos, self.estructura.ide))
     self.tot_dist += np.linalg.norm(self.poshist[-1][0] - self.poshist[-2][0])
   
-  def actualizarDire(self, newDire):
+  def actualizarDire(self, newDire, action="reflect"):
     """Actualiza la dirección del fotón.
     
     Args:
         newDire (list, float): Nueva dirección del fotón.
     """
     self.dire = np.asarray(newDire)/np.linalg.norm(newDire)
-    self.dirhist.append(self.dire)
+    self.dirhist.append((self.dire, action))
   
   def getNumeroReflexionesInternas(self):
     """Calcula el número de reflexiones internas del foton"""
@@ -62,7 +63,7 @@ class SimulatedPhoton():
   def getNumeroReflexiones(self):
     count = 0
     for hist_el in range(1, len(self.dirhist)):
-      if np.dot(self.dirhist[hist_el], self.dirhist[hist_el-1]) < 0:
+      if np.dot(self.dirhist[hist_el][0], self.dirhist[hist_el-1][0]) < 0:
         count += 1
     return count
   

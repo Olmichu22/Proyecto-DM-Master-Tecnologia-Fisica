@@ -1,0 +1,44 @@
+emision_fuente:
+  N_fotones: 10000
+  d_ampliacion: 3000
+  mean_angle: 1.5707963267948966
+  mean_pos_x: 0
+  mean_pos_y: 0
+  reset: 'True'
+  std_angle: 0
+  std_pos_x: 2999
+  std_pos_y: 0
+entorno:
+  n_entorno:
+    ni: 0.0
+    nr: 1.4
+estructuras:
+  estructuras_anidadas:
+    espesor: 275
+    fs_ext_list:
+    - 1.0
+    fs_int_list:
+    - 0.99
+    - 0.01
+    ni_ext_list:
+    - 0.0
+    ni_int_list:
+    - 0
+    - 0.001
+    nr_ext_list:
+    - 2
+    nr_int_list:
+    - 1.6
+    - 1.462
+    radio_ext: 3000
+  max_x: 1000
+  max_y: 1000
+  min_x: 0
+  min_y: 4000
+  n_estructuras: 1
+  y_fixed: false
+fotones:
+  dispersion_ang: uniform
+  dispersion_pos: uniform
+  lamda: 532
+  origen: 0
