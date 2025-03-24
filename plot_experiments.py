@@ -2,12 +2,22 @@ import numpy as np
 import yaml
 import argparse
 import os
+import re
 
 def getxvalue(config, category, key):
     nested_config = config
     for cat in category[:-1]:
         nested_config = nested_config[cat]
-    x_val = nested_config[category[-1]][key]
+    final_section = nested_config[category[-1]]
+    
+    # Detecta si la clave tiene notación con índice, por ejemplo "nr_list[0]"
+    m = re.match(r"(.+)\[(\d+)\]$", key)
+    if m:
+        base_key = m.group(1)
+        idx = int(m.group(2))
+        x_val = final_section[base_key][idx]
+    else:
+        x_val = final_section[key]
     return x_val
 
 
@@ -16,6 +26,8 @@ parser.add_argument("-p", '--resultsPath', type=str, default='results/experiment
 parser.add_argument("-c", '--category', nargs='+', type=str, help='Upper category of variables to change.')
 parser.add_argument("-k", '--key', type =str, help='Key to override in the default configuration.')
 parser.add_argument("-s", "--save", default = "False", type=str, help='Guardar la imagen')
+parser.add_argument("-t", "--title", type=str, help='Título de la gráfica')
+parser.add_argument("-x", "--xlabel", type=str, help='Etiqueta del eje x')
 args = parser.parse_args()
 
 resultsPath = args.resultsPath
@@ -68,10 +80,16 @@ plt.plot(x_values_sorted, y_values_sorted, '-o')
 plt.fill_between(x_values_sorted, np.array(y_values_sorted) - np.array(y_err_sorted), np.array(y_values_sorted) + np.array(y_err_sorted), alpha=0.5)
 # plt.scatter(x_values, y_values, c='red')
 # plt.errorbar(x_values, y_values, yerr=y_err, fmt='o')
-# plt.xlabel(final_key.capitalize(), fontsize=14)
-plt.xlabel(final_key.capitalize() + " (nm)", fontsize=14)
+if args.title:
+    plt.title(args.title, fontsize=16)
+else:
+    plt.title(f"Fracción fotones absorbidos vs {final_key}", fontsize=16)
+if args.xlabel:
+    plt.xlabel(args.xlabel, fontsize=14)
+else:
+    plt.xlabel(final_key.capitalize(), fontsize=14)
+# plt.xlabel(final_key.capitalize() + " (nm)", fontsize=14)
 plt.ylabel("Fracción fotones absorbidos", fontsize=14)
-plt.title(f"Fracción fotones absorbidos vs {final_key}", fontsize=16)
 plt.grid()
 plt.tight_layout()
 
