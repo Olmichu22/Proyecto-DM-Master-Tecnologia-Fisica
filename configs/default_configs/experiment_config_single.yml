@@ -30,7 +30,7 @@ estructuras:
   estructuras_aisladas:
     radio: 3000
     nr_list: 
-      - 1.6
+      - 1.7
       - 1.462 
     ni_list:
       - 0

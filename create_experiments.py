@@ -91,11 +91,16 @@ parser.add_argument("-k", '--key', type=str, help='Clave a sobrescribir en la co
 parser.add_argument("-v", '--value', nargs='+', help='Valores a sobrescribir en la configuración.')
 parser.add_argument("-s", "--structures", default="single", type=str, help='Tipo de estructuras a usar en la simulación.')
 parser.add_argument("-r", "--range", nargs='+', type=float, help='Rango de valores: valor inicial, final y paso.')
+parser.add_argument("-o", "--output", type=str, help='Ruta de salida para los archivos de experimentos.')
 args = parser.parse_args()
 
-output_path = "configs/experiments_" + args.key
+output_path = args.output
+if args.output is None:
+    output_path = "configs/experiments_" + args.key
+    
 if not os.path.exists(output_path):
     os.makedirs(output_path)
+    
 
 default_config_path = args.default_config
 if args.structures == "nested":
@@ -115,6 +120,7 @@ else:
     raise Exception("No se proporcionaron valores")
 
 experiments = create_experiments(default_config_path, args.category, dict_of_values)
+
 for i, experiment in enumerate(experiments):
     with open(os.path.join(output_path, f"config_{args.key}{str(i)}.yaml"), 'w') as file:
         yaml.dump(experiment, file)
