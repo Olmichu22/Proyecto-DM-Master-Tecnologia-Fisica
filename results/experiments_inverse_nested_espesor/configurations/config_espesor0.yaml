@@ -11,7 +11,7 @@ emision_fuente:
 entorno:
   n_entorno:
     ni: 0.0
-    nr: 1.4
+    nr: 1.15
 estructuras:
   estructuras_anidadas:
     espesor: 25
@@ -26,7 +26,7 @@ estructuras:
     ni_int_list:
     - 0.0
     nr_ext_list:
-    - 1.6
+    - 1.65
     - 1.462
     nr_int_list:
     - 2

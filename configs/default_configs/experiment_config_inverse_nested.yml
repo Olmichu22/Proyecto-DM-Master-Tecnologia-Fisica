@@ -1,6 +1,6 @@
 entorno:
   n_entorno:
-    nr: 1.4      # Índice real del entorno (por ejemplo, agua o aire)
+    nr: 1.15      # Índice real del entorno (por ejemplo, agua o aire)
     ni: 0.0       # Índice imaginario (sin absorción)
 
 emision_fuente:
@@ -31,7 +31,7 @@ estructuras:
     radio_ext: 3000             # Radio de la esfera externa
     espesor: 50                # Diferencia: radio_interna = radio_ext - espesor
     nr_ext_list:
-      - 1.6
+      - 1.65
       - 1.462         # Índice real interno
     ni_ext_list: 
       - 0
@@ -40,7 +40,7 @@ estructuras:
       - 0.99
       - 0.01        # Fracción de volumen interna
     nr_int_list: 
-      - 2        # Índice real externo (de la estructura)
+      - 2.7        # Índice real externo (de la estructura)
     ni_int_list: 
       - 0.0         # Índice imaginario externo
     fs_int_list:

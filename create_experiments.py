@@ -96,7 +96,7 @@ args = parser.parse_args()
 
 output_path = args.output
 if args.output is None:
-    output_path = "configs/experiments_" + args.key
+    output_path = "configs/experiments_"+args.structures+"_"+args.key
     
 if not os.path.exists(output_path):
     os.makedirs(output_path)
@@ -118,7 +118,8 @@ elif args.value:
     dict_of_values = {args.key: args.value}
 else:
     raise Exception("No se proporcionaron valores")
-
+print(output_path)
+print(dict_of_values)
 experiments = create_experiments(default_config_path, args.category, dict_of_values)
 
 for i, experiment in enumerate(experiments):
